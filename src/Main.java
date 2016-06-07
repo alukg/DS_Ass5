@@ -21,14 +21,18 @@ public class Main {
 	{
 		Point[] points = {
 				new Point(0, 0),
-				new Point(1, 2),
-				new Point(2, 3),
-				new Point(3, 1),
+				new Point(1, 1),
+				new Point(2, 2),
+				new Point(3, 3),
 				new Point(4, 4),
+				new Point(5, 5),
+				new Point(6, 6),
+				new Point(7, 7),
 		};
 
 
 		AVLTree t = new AVLTree(points);
+		t.insert(new Point(8,8));
 		t.inorder();
 
 	}

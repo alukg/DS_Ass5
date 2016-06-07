@@ -83,6 +83,7 @@ public class AVLTree {
         k1.right = k2;
         k2.height = max( height( k2.left ), height( k2.right ) ) + 1;
         k1.height = max( height( k1.left ), k2.height ) + 1;
+
         return k1;
     }
 
@@ -95,6 +96,10 @@ public class AVLTree {
         k1.height = max( height( k1.left ), height( k1.right ) ) + 1;
         k1.height = max( height( k1.left ), height( k1.right ) ) + 1;
         k2.height = max( height( k2.right ), k1.height ) + 1;
+
+        int temp = k2.right.size +1;
+        k2.size =k1.size;
+        k1.size -= temp;
         return k2;
     }
     /**
@@ -165,7 +170,7 @@ public class AVLTree {
         if (r != null)
         {
             inorder(r.left);
-            System.out.println(r.data.getX() +" " + r.data.getY() +" "+ r.ySum + " " + r.size);
+            System.out.println(r.data.getX() +" " + r.size+ " " + r.height);
             inorder(r.right);
         }
     }
@@ -199,17 +204,20 @@ public class AVLTree {
     }
     private void addSize(AVLNode node)
     {
-        int counter=0, sum=0;
+        int counter=0, sum=0, height =-1;
         if(node.left !=null) {
             addSize(node.left);
+            height = node.left.height;
             counter += node.left.size;
             sum +=node.left.ySum;
         }
         if(node.right !=null) {
             addSize(node.right);
+            height = Math.max(height,node.right.height);
             counter += node.right.size;
             sum +=node.right.ySum;
         }
+        node.height = height +1;
         node.size = counter +1;
         node.ySum = sum + node.data.getY();
     }
