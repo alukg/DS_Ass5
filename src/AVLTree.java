@@ -16,9 +16,9 @@ public class AVLTree {
         AVLNode node = new AVLNode(arr[mid]);
         node.left = sortedArrayToBST(arr, start, mid-1);
         node.right = sortedArrayToBST(arr, mid+1, end);
-
+        addSize(root);
         // insertSumValues():
-        //insertsize();
+        //insertize();
         return node;
     }
     /* Function to check if tree is empty */
@@ -27,9 +27,9 @@ public class AVLTree {
         return root == null;
     }
     /* Function to insert data */
-    public void insert(int data)
+    public void insert(Point p)
     {
-        root = insert(data, root);
+        root = insert(p, root);
     }
     /* Function to get height of node */
     private int height(AVLNode t )
@@ -48,24 +48,24 @@ public class AVLTree {
             return rightheight;
     }
     /* Function to insert data recursively */
-    private AVLNode insert(int x, AVLNode t)
+    private AVLNode insert(Point p, AVLNode t)
     {
         if (t == null)
-            t = new AVLNode(x);
-        else if (x < t.data)
+            t = new AVLNode(p);
+        else if (p.getX() < t.data.getX())
         {
-            t.left = insert( x, t.left );
+            t.left = insert( p, t.left );
             if( height( t.left ) - height( t.right ) == 2 )
-                if( x < t.left.data )
+                if( p.getX() < t.left.data.getX() )
                     t = rotateWithLeftChild( t );
                 else
                     t = doubleWithLeftChild( t );
         }
-        else if( x > t.data )
+        else if( p.getX() > t.data.getX() )
         {
-            t.right = insert( x, t.right );
+            t.right = insert( p, t.right );
             if( height( t.right ) - height( t.left ) == 2 )
-                if( x > t.right.data)
+                if( p.getX() > t.right.data.getX())
                     t = rotateWithRightChild( t );
                 else
                     t = doubleWithRightChild( t );
@@ -92,6 +92,7 @@ public class AVLTree {
         AVLNode k2 = k1.right;
         k1.right = k2.left;
         k2.left = k1;
+        k1.height = max( height( k1.left ), height( k1.right ) ) + 1;
         k1.height = max( height( k1.left ), height( k1.right ) ) + 1;
         k2.height = max( height( k2.right ), k1.height ) + 1;
         return k2;
@@ -139,7 +140,7 @@ public class AVLTree {
         boolean found = false;
         while ((r != null) && !found)
         {
-            int rval = r.data;
+            int rval = r.data.getX();
             if (val < rval)
                 r = r.left;
             else if (val > rval)
@@ -164,7 +165,7 @@ public class AVLTree {
         if (r != null)
         {
             inorder(r.left);
-            //System.out.print(r.data +" ");
+            System.out.println(r.data.getX() +" " + r.data.getY() +" "+ r.ySum + " " + r.size);
             inorder(r.right);
         }
     }

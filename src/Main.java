@@ -11,12 +11,27 @@ public class Main {
 
 	public static void main(String[] args) 
 	{
-		testA();
-		testB();
-		testC();
+		//testA();
+		//testB();
+		//testC();
+		testD();
 	}
 
-	
+	private static void testD()
+	{
+		Point[] points = {
+				new Point(0, 0),
+				new Point(1, 2),
+				new Point(2, 3),
+				new Point(3, 1),
+				new Point(4, 4),
+		};
+
+
+		AVLTree t = new AVLTree(points);
+		t.inorder();
+
+	}
 	private static void testA()
 	{
 		Point[] points = {
