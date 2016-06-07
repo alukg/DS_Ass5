@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 
 public class PointDataStructure implements PDT {
 
@@ -5,6 +6,9 @@ public class PointDataStructure implements PDT {
 	//////////////// DON'T DELETE THIS CONSTRUCTOR ////////////////
 	public PointDataStructure(Point[] points, Point initialYMedianPoint)
 	{
+		//sortArray();
+		//CreateTree();
+		//CreateHeap();
 		//TODO
 	}
 
@@ -51,6 +55,28 @@ public class PointDataStructure implements PDT {
 	}
 
 	//TODO: add members, methods, etc.
-	
+	private boolean isArraysorted(Point arr[])
+	{
+		for (int i=0;i<arr.length-1;i++)
+		{
+			if(arr[i].getX() > arr[i+1].getX())
+				return false;
+		}
+		return true;
+	}
+	private Point[] sortArray(Point arr[])
+	{
+		if(isArraysorted(arr))
+			return arr;
+		else
+		{
+			Point [] arr2 = new Point[arr.length];
+			for (int i=0; i<arr.length; i++)
+			{
+				arr2[arr[i].getX()] = arr[i];
+			}
+			return arr2;
+		}
+	}
 }
 
