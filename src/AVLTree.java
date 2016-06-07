@@ -7,7 +7,8 @@ public class AVLTree {
     /* Constructor */
     public AVLTree(Point arr[])
     {
-        root = sortedArrayToBST(arr, 0, arr.length-1);;
+        this.root = sortedArrayToBST(arr, 0, arr.length-1);
+        addSize(root);
     }
 
     private AVLNode sortedArrayToBST(Point arr[], int start, int end) {
@@ -16,7 +17,6 @@ public class AVLTree {
         AVLNode node = new AVLNode(arr[mid]);
         node.left = sortedArrayToBST(arr, start, mid-1);
         node.right = sortedArrayToBST(arr, mid+1, end);
-        addSize(root);
         // insertSumValues():
         //insertize();
         return node;
