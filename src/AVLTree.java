@@ -172,7 +172,7 @@ public class AVLTree {
         if (r != null)
         {
             inorder(r.left);
-            System.out.println(r.data.getX() +" " + r.size+ " " + r.height);
+            System.out.println(r.data.getX() +" " + r.size+ " " + r.ySum);
             inorder(r.right);
         }
     }

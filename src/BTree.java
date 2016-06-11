@@ -40,23 +40,33 @@ public class BTree {
         if (p.getX() < bNode.data.getX())
         {
             bNode.size++;
-            bNode.ySum =+ p.getY();
             if(bNode.left == null)
-                bNode.left = new BNode(p);
+            {
+                BNode temp =new BNode(p);
+                temp.size =1;
+                temp.ySum = p.getY();
+                bNode.left = temp;
+            }
             else
                 insert( p, bNode.left );
+                bNode.ySum +=p.getY();
         }
         else if( p.getX() > bNode.data.getX() )
         {
             bNode.size++;
-            bNode.ySum =+ p.getY();
-            if(bNode.right == null)
-                bNode.right = new BNode(p);
+            if(bNode.right == null) {
+                BNode temp =new BNode(p);
+                temp.size =1;
+                temp.ySum = p.getY();
+                bNode.right = temp;
+            }
             else
                 insert( p, bNode.right );
+                bNode.ySum +=p.getY();
         }
         else
-            ;  // Duplicate; do nothing
+            ;// Duplicate; do nothing
+
     }
 
     /**
