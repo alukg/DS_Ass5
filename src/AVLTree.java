@@ -55,20 +55,22 @@ public class AVLTree {
         else if (p.getX() < t.data.getX())
         {
             t.left = insert( p, t.left );
-            if( height( t.left ) - height( t.right ) == 2 )
+            /*if( height( t.left ) - height( t.right ) == 2 )
                 if( p.getX() < t.left.data.getX() )
                     t = rotateWithLeftChild( t );
                 else
                     t = doubleWithLeftChild( t );
+            */
         }
         else if( p.getX() > t.data.getX() )
         {
             t.right = insert( p, t.right );
-            if( height( t.right ) - height( t.left ) == 2 )
+            /*if( height( t.right ) - height( t.left ) == 2 )
                 if( p.getX() > t.right.data.getX())
                     t = rotateWithRightChild( t );
                 else
                     t = doubleWithRightChild( t );
+                    */
         }
         else
             ;  // Duplicate; do nothing

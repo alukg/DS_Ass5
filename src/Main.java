@@ -19,6 +19,7 @@ public class Main {
 
 	private static void testD()
 	{
+
 		Point[] points = {
 				new Point(0, 0),
 				new Point(1, 1),
@@ -29,12 +30,20 @@ public class Main {
 				new Point(6, 6),
 				new Point(7, 7),
 		};
-
-
+		Heap h = new Heap(points, true);
+		h.printArray();
+		System.out.println();
+		h.ExtractMax();
+		h.ExtractMax();
+		h.printArray();
+/*
 		AVLTree t = new AVLTree(points);
 		t.insert(new Point(8,8));
+		t.insert(new Point(9,9));
+		t.insert(new Point(10,10));
+		t.insert(new Point(11,11));
 		t.inorder();
-
+*/
 	}
 	private static void testA()
 	{
