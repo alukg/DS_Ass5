@@ -45,11 +45,11 @@ public class Heap {
                     swapPoints(index, 2 * (index + 1) - 1);
                 }
             } else {
-                int minChildIndex = getMax(2 * (index + 1) - 1, 2 * (index + 1));
-                if (getMax(index, minChildIndex) == minChildIndex) {
-                    swapPoints(index, minChildIndex);
+                int maxChildIndex = getMax(2 * (index + 1) - 1, 2 * (index + 1));
+                if (getMax(index, maxChildIndex) == maxChildIndex) {
+                    swapPoints(index, maxChildIndex);
                     if (2 * (index + 1) - 1 < heapSize)
-                        DownHeapify(minChildIndex);
+                        DownHeapify(maxChildIndex);
                 }
             }
         } else {
