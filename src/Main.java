@@ -31,7 +31,7 @@ public class Main {
 		};
 
 
-		AVLTree t = new AVLTree(points);
+		BTree t = new BTree(points);
 		t.insert(new Point(8,8));
 		t.inorder();
 
