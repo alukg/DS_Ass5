@@ -30,6 +30,7 @@ public class Main {
 				new Point(6, 6),
 				new Point(7, 7),
 		};
+<<<<<<< HEAD
 		Heap h = new Heap(points, true);
 		h.printArray();
 		System.out.println();
@@ -38,6 +39,11 @@ public class Main {
 		h.printArray();
 /*
 		AVLTree t = new AVLTree(points);
+=======
+
+
+		BTree t = new BTree(points);
+>>>>>>> cd159460378af093790d21b34ec5efad8eaca7b3
 		t.insert(new Point(8,8));
 		t.insert(new Point(9,9));
 		t.insert(new Point(10,10));
