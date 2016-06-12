@@ -62,7 +62,7 @@ public class BTree {
             }
             else
                 insert( p, bNode.right );
-                bNode.ySum +=p.getY();
+            bNode.ySum +=p.getY();
         }
         else
             ;// Duplicate; do nothing

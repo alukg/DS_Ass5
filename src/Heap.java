@@ -31,18 +31,23 @@ public class Heap {
     }
 
     public Point ExtractMax() {
-        Point p = heapArr[0];
-        heapArr[0] = heapArr[heapSize - 1];
-        heapSize--;
-        DownHeapify(0);
-        return p;
+        if(heapSize==0)
+            throw new RuntimeException("Heap is Empty");
+        else {
+            Point p = heapArr[0];
+            heapArr[0] = heapArr[heapSize - 1];
+            heapSize--;
+            DownHeapify(0);
+            return p;
+        }
     }
 
     public void DownHeapify(int index) {
         if (isMax) {
             if (2 * (index + 1) >= heapSize) {
-                if (getMax(index, 2 * (index + 1) - 1) == 2 * (index + 1) - 1) {
-                    swapPoints(index, 2 * (index + 1) - 1);
+                if(2 * (index + 1) - 1 < heapSize)
+                    if (getMax(index, 2 * (index + 1) - 1) == 2 * (index + 1) - 1) {
+                        swapPoints(index, 2 * (index + 1) - 1);
                 }
             } else {
                 int maxChildIndex = getMax(2 * (index + 1) - 1, 2 * (index + 1));
@@ -54,14 +59,15 @@ public class Heap {
             }
         } else {
             if (2 * (index + 1) >= heapSize) {
-                if (getMin(index, 2 * (index + 1) - 1) == 2 * (index + 1) - 1) {
-                    swapPoints(index, 2 * (index + 1) - 1);
+                if(2 * (index + 1) - 1 < heapSize)
+                    if (getMin(index, 2 * (index + 1) - 1) == 2 * (index + 1) - 1) {
+                        swapPoints(index, 2 * (index + 1) - 1);
                 }
             } else {
                 int minChildIndex = getMin(2 * (index + 1) - 1, 2 * (index + 1));
                 if (getMin(index, minChildIndex) == minChildIndex) {
                     swapPoints(index, minChildIndex);
-                    if (2 * (index + 1) - 1 < heapSize)
+                    if (minChildIndex < heapSize)
                         DownHeapify(minChildIndex);
                 }
             }
