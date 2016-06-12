@@ -37,26 +37,25 @@ public class BTree {
     /* Function to insert data recursively */
     private void insert(Point p, BNode bNode)
     {
+        bNode.size++;
+        bNode.ySum += p.getY();
         if (p.getX() < bNode.data.getX())
         {
-            bNode.size++;
             if(bNode.left == null)
             {
                 BNode temp =new BNode(p);
-                temp.size =1;
+                temp.size = 1;
                 temp.ySum = p.getY();
                 bNode.left = temp;
             }
             else
                 insert( p, bNode.left );
-                bNode.ySum +=p.getY();
         }
-        else if( p.getX() > bNode.data.getX() )
+        else
         {
-            bNode.size++;
             if(bNode.right == null) {
                 BNode temp =new BNode(p);
-                temp.size =1;
+                temp.size = 1;
                 temp.ySum = p.getY();
                 bNode.right = temp;
             }
@@ -64,9 +63,6 @@ public class BTree {
                 insert( p, bNode.right );
             bNode.ySum +=p.getY();
         }
-        else
-            ;// Duplicate; do nothing
-
     }
 
     /**
