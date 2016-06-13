@@ -64,13 +64,9 @@ public class PointDataStructure implements PDT {
 		if(bTree.getRoot() == null) return 0;
 		BNode leftNode = bTree.getClosestNodeFromRight(XLeft);
 		BNode rightNode = bTree.getClosestNodeFromLeft(XRight);
-		if(leftNode.data.getX()>rightNode.data.getX()) return 0;
-		int numOfPoints = bTree.getRoot().size;
-		if(leftNode.left != null)
-			numOfPoints = numOfPoints - leftNode.left.size;
-		if(rightNode.right != null)
-			numOfPoints = numOfPoints - rightNode.right.size;
-		return numOfPoints;
+		if(leftNode == null || rightNode == null) return 0;
+		if(leftNode.data.getX() > rightNode.data.getX()) return 0;
+		return getLocation(XRight)-getLocation(XLeft)+1;
 	}
 
 	@Override
