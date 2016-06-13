@@ -4,6 +4,7 @@
 public class BNode {
 
     BNode left, right;
+    BNode father;
     Point data;
     int size;
     int ySum;
@@ -14,6 +15,7 @@ public class BNode {
         left = null;
         right = null;
         data = null;
+        father = null;
         size = 0;
         ySum = 0;
     }
@@ -22,6 +24,7 @@ public class BNode {
     {
         left = null;
         right = null;
+        father = null;
         data = p;
         size = 0;
         ySum = 0;

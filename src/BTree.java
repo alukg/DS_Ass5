@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * Created by shahar on 07/06/2016.
  */
@@ -10,16 +12,17 @@ public class BTree {
      */
     public BTree(Point arr[])
     {
-        this.root = sortedArrayToTree(arr, 0, arr.length-1);
+        this.root = sortedArrayToTree(arr, 0, arr.length-1, null);
         insertSizeAndSum(root);
     }
 
-    private BNode sortedArrayToTree(Point arr[], int start, int end) {
+    private BNode sortedArrayToTree(Point arr[], int start, int end, BNode father) {
         if (start > end) return null;
         int mid = (start + end) / 2;
         BNode node = new BNode(arr[mid]);
-        node.left = sortedArrayToTree(arr, start, mid-1);
-        node.right = sortedArrayToTree(arr, mid+1, end);
+        node.father = father;
+        node.left = sortedArrayToTree(arr, start, mid-1, node);
+        node.right = sortedArrayToTree(arr, mid+1, end, node);
         return node;
     }
 
@@ -28,6 +31,9 @@ public class BTree {
     {
         if(root == null){
             root = new BNode(p);
+            root.size = 1;
+            root.ySum = p.getY();
+            root.father = null;
         }
         else{
             insert(p, root);
@@ -46,6 +52,7 @@ public class BTree {
                 BNode temp =new BNode(p);
                 temp.size = 1;
                 temp.ySum = p.getY();
+                temp.father = bNode;
                 bNode.left = temp;
             }
             else
@@ -57,11 +64,11 @@ public class BTree {
                 BNode temp =new BNode(p);
                 temp.size = 1;
                 temp.ySum = p.getY();
+                temp.father = bNode;
                 bNode.right = temp;
             }
             else
                 insert( p, bNode.right );
-            bNode.ySum +=p.getY();
         }
     }
 
@@ -102,6 +109,8 @@ public class BTree {
      */
     public BNode getNode(int val)
     {
+        if(root == null)
+            return null;
         return getNode(root, val);
     }
 
@@ -114,6 +123,74 @@ public class BTree {
             return getNode(bNode.right, val);
         else
             return bNode;
+    }
+
+    public void remove (int val){
+        BNode bNode = getNode(val);
+        if (bNode == null) return;
+        else
+            remove(getNode(val).data,root);
+    }
+
+    private void remove (Point point, BNode bNode)
+    {
+        if (point.getX() < bNode.data.getX()){
+            bNode.size--;
+            bNode.ySum = bNode.ySum - point.getY();
+            remove (point, bNode.left);
+        }
+        else if (point.getX() > bNode.data.getX()){
+            bNode.size--;
+            bNode.ySum = bNode.ySum - point.getY();
+            remove (point, bNode.right);
+        }
+        else {
+            if (bNode.left != null && bNode.right != null)
+            {
+                if(bNode.right.size > bNode.left.size){
+                    BNode minFromRight = getMin(bNode.right);
+                    bNode.data = minFromRight.data;
+                    bNode.size--;
+                    bNode.ySum = bNode.ySum - minFromRight.data.getY();
+                    remove (minFromRight.data, bNode.right);
+                }
+                else{
+                    BNode maxFromLeft = getMax(bNode.left);
+                    bNode.data = maxFromLeft.data;
+                    bNode.size--;
+                    bNode.ySum = bNode.ySum - maxFromLeft.data.getY();
+                    remove (maxFromLeft.data, bNode.left);
+                }
+            }
+            else if(bNode.left != null) {
+                if(bNode == root)
+                    root = bNode.left;
+                if(bNode.father.left == bNode)
+                    bNode.father.left = bNode.left;
+                else
+                    bNode.father.right = bNode.left;
+                bNode.left.father = bNode.father;
+                bNode.left = null;
+            }
+            else if(bNode.right != null) {
+                if(bNode == root)
+                    root = bNode.right;
+                else if(bNode.father.left == bNode)
+                    bNode.father.left = bNode.right;
+                else
+                    bNode.father.right = bNode.right;
+                bNode.right.father = bNode.father;
+                bNode.right = null;
+            }
+            else {
+                if(bNode == root)
+                    root = null;
+                else if(bNode.father.left == bNode)
+                    bNode.father.left = null;
+                else
+                    bNode.father.right = null;
+            }
+        }
     }
 
     /**
@@ -129,7 +206,7 @@ public class BTree {
         if (bNode != null)
         {
             inorder(bNode.left);
-            System.out.println(bNode.data.getX() +" " + bNode.size+ " " + bNode.ySum);
+            System.out.println(bNode.data.getX() + " " + bNode.data.getY() + " " + bNode.size + " " + bNode.ySum);
             inorder(bNode.right);
         }
     }
@@ -160,5 +237,23 @@ public class BTree {
             else
                 return location(node.right, num- node.left.size -1);
 
+    }
+
+    private BNode getMax(BNode bNode){
+        if(bNode.right == null){
+            return bNode;
+        }
+        else{
+            return getMax(bNode.right);
+        }
+    }
+
+    private BNode getMin(BNode bNode){
+        if(bNode.left == null){
+            return bNode;
+        }
+        else{
+            return getMin(bNode.left);
+        }
     }
 }
