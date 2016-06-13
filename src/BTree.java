@@ -21,6 +21,7 @@ public class BTree {
     {
         return this.root;
     }
+
     private BNode sortedArrayToTree(Point arr[], int start, int end, BNode father) {
         if (start > end) return null;
         int mid = (start + end) / 2;
