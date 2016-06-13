@@ -23,29 +23,20 @@ public class Main {
 		Point[] points = {
 				new Point(0, 0),
 				new Point(1, 1),
-				new Point(2, 2),
-				new Point(3, 3),
 				new Point(4, 4),
 				new Point(5, 5),
 				new Point(6, 6),
 				new Point(7, 7),
 		};
 
-		Heap h = new Heap(points, true);
-		h.printArray();
-		System.out.println();
-		h.ExtractMax();
-		h.ExtractMax();
-		h.printArray();
-/*
+
 		BTree t = new BTree(points);
 
 		t.insert(new Point(8,8));
-		t.insert(new Point(9,9));
-		t.insert(new Point(10,10));
 		t.insert(new Point(11,11));
-		t.inorder();
-*/
+		//t.inorder();
+
+		System.out.println(t.getClosestNodefromRight(null, t.getRoot(),10).data.getX());
 	}
 	private static void testA()
 	{
