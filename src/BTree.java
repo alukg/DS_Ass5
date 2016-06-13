@@ -114,6 +114,17 @@ public class BTree {
         return getNode(root, val);
     }
 
+    private Point getClosestPointfromLeft(int xLeft)
+    {
+     /*   int nodeVal = bNode.data.getX();
+        if (val < nodeVal)
+            return getNode(bNode.left, val);
+        else if (val > nodeVal)
+            return getNode(bNode.right, val);
+        else
+            return bNode;*/
+    }
+
     private BNode getNode(BNode bNode, int val)
     {
         int nodeVal = bNode.data.getX();
@@ -193,6 +204,17 @@ public class BTree {
         }
     }
 
+    private BNode location(BNode node, int num) {
+        if (node.left.size +1 == num)
+            return node;
+        else
+            if(node.left.size >= num)
+                return location(node.left, num);
+            else
+                return location(node.right, num- node.left.size -1);
+
+    }
+
     /**
      * Print Inorder traversal
      */
@@ -229,17 +251,6 @@ public class BTree {
         }
         node.size = counter +1;
         node.ySum = sum + node.data.getY();
-    }
-
-    private BNode location(BNode node, int num) {
-        if (node.left.size +1 == num)
-            return node;
-        else
-            if(node.left.size >= num)
-                return location(node.left, num);
-            else
-                return location(node.right, num- node.left.size -1);
-
     }
 
     private BNode getMax(BNode bNode){

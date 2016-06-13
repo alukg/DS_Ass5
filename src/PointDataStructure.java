@@ -26,6 +26,28 @@ public class PointDataStructure implements PDT {
 	@Override
 	public void addPoint(Point point) {
 		// TODO Auto-generated method stub
+		//insert to tree
+
+		//insert to heap
+		if(point.getY() == medianPoint.getY()) {
+			if (point.getX() < medianPoint.getX()) {
+				maxHeap.Insert(point);
+			}
+			else
+				minHeap.Insert(point);
+		}
+		else
+		{
+			if(point.getY() < medianPoint.getY())
+				maxHeap.Insert(point);
+			else
+				minHeap.Insert(point);
+		}
+		if (maxHeap.heapSize - minHeap.heapSize >1)
+		{
+			minHeap.Insert(medianPoint);
+			medianPoint = maxHeap.ExtractMax();
+		}
 	}
 
 	@Override
@@ -68,6 +90,8 @@ public class PointDataStructure implements PDT {
 	@Override
 	public Point[] getAllPoints() {
 		// TODO Auto-generated method stub
+		Point [] points = new Point[maxHeap.heapSize + minHeap.heapSize +1];
+
 		return null;
 	}
 

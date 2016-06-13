@@ -6,13 +6,12 @@ public class Heap {
     int heapSize;
     boolean isMax;
 
+
     //Constructor
-    public Heap(Point[] p, boolean isMax) {
-        heapArr = new Point[p.length * 2];
+    public Heap(int arrLength, boolean isMax) {
+        heapArr = new Point[arrLength * 2];
         heapSize = 0;
         this.isMax = isMax;
-        for (int i = 0; i < p.length; i++)
-            Insert(p[i]);
     }
 
     public void printArray() {

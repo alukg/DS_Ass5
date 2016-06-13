@@ -29,4 +29,5 @@ public class BNode {
         size = 0;
         ySum = 0;
     }
+
 }
