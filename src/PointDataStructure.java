@@ -84,6 +84,8 @@ public class PointDataStructure implements PDT {
 	@Override
 	public Point[] getAllPoints() {
 		// TODO Auto-generated method stub
+		Point [] points = new Point[maxHeap.heapSize + minHeap.heapSize +1];
+
 		return null;
 	}
 
