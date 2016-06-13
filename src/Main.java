@@ -34,8 +34,8 @@ public class Main {
 		t.insert(new Point(8,8));
 		t.insert(new Point(11,11));
 		//t.inorder();
-
-		System.out.println(t.getClosestNodefromRight(null, t.getRoot(),10).data.getX());
+		//System.out.println(t.getClosestNodeFromRight(10).data.getX());
+		System.out.println(t.getLocationByNode(6));
 	}
 	private static void testA()
 	{

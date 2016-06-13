@@ -248,6 +248,30 @@ public class BTree {
                 return location(node.right, num- node.left.size -1);
 
     }
+    public int getLocationByNode (int search)
+    {
+        return getLocationByNode(this.getRoot(),search,0);
+    }
+
+    private int getLocationByNode (BNode bNode,int search, int num)
+    {
+        int size;
+        if(bNode.left == null) {
+            size = 0;
+        }
+        else {
+            size = bNode.left.size;
+        }
+        if(search == bNode.data.getX())
+        {
+            return num + size +1;
+        }
+        if(search < bNode.data.getX())
+            return getLocationByNode(bNode.left,search,num);
+        else {
+            return getLocationByNode(bNode.right, search, num + size +1);
+        }
+    }
 
     /**
      * Print Inorder traversal
