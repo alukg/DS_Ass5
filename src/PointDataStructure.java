@@ -66,7 +66,7 @@ public class PointDataStructure implements PDT {
 		BNode rightNode = bTree.getClosestNodeFromLeft(XRight);
 		if(leftNode == null || rightNode == null) return 0;
 		if(leftNode.data.getX() > rightNode.data.getX()) return 0;
-		return bTree.getLocationByNode(XRight)-bTree.getLocationByNode(XLeft)+1;
+		return bTree.getLocationByNode(rightNode.data.getX())-bTree.getLocationByNode(leftNode.data.getX())+1;
 	}
 
 	@Override
@@ -74,12 +74,9 @@ public class PointDataStructure implements PDT {
 		if(bTree.getRoot() == null) return 0;
 		BNode leftNode = bTree.getClosestNodeFromRight(XLeft);
 		BNode rightNode = bTree.getClosestNodeFromLeft(XRight);
+		if(leftNode == null || rightNode == null) return 0;
 		if(leftNode.data.getX()>rightNode.data.getX()) return 0;
-		int ySumOfPoints = bTree.getRoot().ySum;
-		if(leftNode.left != null)
-			ySumOfPoints = ySumOfPoints - leftNode.left.ySum;
-		if(rightNode.right != null)
-			ySumOfPoints = ySumOfPoints - rightNode.right.ySum;
+		int ySumOfPoints = bTree.getSumbyNode(rightNode.data.getX())-bTree.getSumbyNode(leftNode.data.getX())+bTree.getNode(leftNode.data.getX());
 		return (ySumOfPoints/numOfPointsInRange(XLeft,XRight));
 	}
 
@@ -98,7 +95,12 @@ public class PointDataStructure implements PDT {
 
 	@Override
 	public Point[] getMedianPoints(int k) {
-		// TODO Auto-generated method stub
+		Point[] medianPoints = new Point[k];
+		medianPoints[0] = medianPoint;
+		Heap maxHeap = new Heap(k,true);
+		for(int i=0;i<k/2;i++){
+
+		}
 		return null;
 	}
 

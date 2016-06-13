@@ -6,7 +6,6 @@ public class Heap {
     int heapSize;
     boolean isMax;
 
-
     //Constructor
     public Heap(int arrLength, boolean isMax) {
         heapArr = new Point[arrLength * 2];
