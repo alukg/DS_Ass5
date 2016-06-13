@@ -274,6 +274,30 @@ public class BTree {
         }
     }
 
+    public int getSumbyNode(int search)
+    {
+        return getSumbyNode(this.getRoot(),search, 0);
+    }
+    private int getSumbyNode(BNode bNode, int search,int sum)
+    {
+        int currSum;
+        if(bNode.left == null) {
+            currSum = 0;
+        }
+        else {
+            currSum= bNode.left.ySum;
+        }
+        if(search == bNode.data.getX())
+        {
+            return sum + currSum +bNode.data.getY();
+        }
+        if(search < bNode.data.getX())
+            return getSumbyNode(bNode.left,search,sum);
+        else {
+            return getSumbyNode(bNode.right, search, sum + currSum + bNode.data.getY());
+        }
+    }
+
     /**
      * Print Inorder traversal
      */
@@ -331,4 +355,6 @@ public class BTree {
             return getMin(bNode.left);
         }
     }
+
+
 }
