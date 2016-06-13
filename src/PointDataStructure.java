@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 
 public class PointDataStructure implements PDT {
 
@@ -110,7 +109,7 @@ public class PointDataStructure implements PDT {
 	@Override
 	public Point[] getAllPoints() {
 		Point [] points = new Point[maxHeap.heapSize + minHeap.heapSize +1];
-		Point root = bTree.getRoot();
+		BNode root = bTree.getRoot();
 		points = bTree.inorder(points,bTree.getMin(root).data.getX(),bTree.getMax(root).data.getX());
 		return points;
 	}
