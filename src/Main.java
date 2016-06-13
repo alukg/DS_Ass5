@@ -27,6 +27,7 @@ public class Main {
 				new Point(5, 5),
 				new Point(6, 6),
 				new Point(7, 7),
+				new Point(8,8)
 		};
 
 		BTree t = new BTree(points);
@@ -37,6 +38,9 @@ public class Main {
 		//System.out.println(t.getClosestNodeFromRight(10).data.getX());
 		System.out.println(t.getLocationByNode(7));
 		System.out.println(t.getSumbyNode(7));
+
+		PointDataStructure pdt =new PointDataStructure(points,points[4]);
+		System.out.println(pdt.averageHeightInRange(1,4));
 	}
 	private static void testA()
 	{
