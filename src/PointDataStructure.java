@@ -49,7 +49,7 @@ public class PointDataStructure implements PDT {
 	@Override
 	public void removeMedianPoint() {
 		if(maxHeap.heapSize > minHeap.heapSize){
-			minHeap.
+			
 		}
 	}
 
