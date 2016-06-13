@@ -17,6 +17,10 @@ public class BTree {
         insertSizeAndSum(root);
     }
 
+    public BNode getRoot()
+    {
+        return this.root;
+    }
     private BNode sortedArrayToTree(Point arr[], int start, int end, BNode father) {
         if (start > end) return null;
         int mid = (start + end) / 2;
@@ -115,17 +119,35 @@ public class BTree {
         return getNode(root, val);
     }
 
-
-    //private Point getClosestPointfromLeft(int xLeft)
-    //{
-     /*   int nodeVal = bNode.data.getX();
-        if (val < nodeVal)
-            return getNode(bNode.left, val);
-        else if (val > nodeVal)
-            return getNode(bNode.right, val);
+    public BNode getClosestNodefromLeft(BNode curr, BNode bNode, int val) {
+        if(bNode == null)
+            return curr;
+        if (bNode.data.getX() == val)
+            return bNode;
         else
-            return bNode;*/
-    //}
+            if(val< bNode.data.getX())
+                return getClosestNodefromLeft(curr,bNode.left, val);
+            else
+            {
+                curr= bNode;
+                return getClosestNodefromLeft(curr,bNode.right,val);
+            }
+    }
+
+    public BNode getClosestNodefromRight(BNode curr, BNode bNode, int val) {
+        if(bNode == null)
+            return curr;
+        if (bNode.data.getX() == val)
+            return bNode;
+        else
+        if(val> bNode.data.getX())
+            return getClosestNodefromRight(curr,bNode.right, val);
+        else
+        {
+            curr= bNode;
+            return getClosestNodefromRight(curr,bNode.left,val);
+        }
+    }
 
     private BNode getNode(BNode bNode, int val)
     {
