@@ -49,7 +49,13 @@ public class PointDataStructure implements PDT {
 	@Override
 	public void removeMedianPoint() {
 		if(maxHeap.heapSize > minHeap.heapSize){
-			minHeap.
+			medianPoint = maxHeap.ExtractMax();
+		}
+		else if(maxHeap.heapSize == 0){
+			medianPoint = null;
+		}
+		else{
+			medianPoint = minHeap.ExtractMax();
 		}
 	}
 

@@ -196,18 +196,21 @@ public class BTree {
     /**
      * Print Inorder traversal
      */
-    public void inorder()
+    public void inorder(int XLeft, int XRight)
     {
-        inorder(root);
+        inorder(root,XLeft,XRight);
     }
 
-    private void inorder(BNode bNode)
+    private void inorder(BNode bNode, int XLeft, int XRight)
     {
         if (bNode != null)
         {
-            inorder(bNode.left);
-            System.out.println(bNode.data.getX() + " " + bNode.data.getY() + " " + bNode.size + " " + bNode.ySum);
-            inorder(bNode.right);
+            if(XLeft < bNode.data.getX())
+                inorder(bNode.left, XLeft, XRight);
+            if(bNode.data.getX() >= XLeft && bNode.data.getX() <= XRight)
+                System.out.println(bNode.data.getX() + " " + bNode.data.getY() + " " + bNode.size + " " + bNode.ySum);
+            if(XRight > bNode.data.getX())
+                inorder(bNode.right, XLeft, XRight);
         }
     }
 
