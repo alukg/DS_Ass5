@@ -10,7 +10,7 @@ public class MaxMinHeap
 
     private static final int FRONT = 1;
 
-    public MaxMinHeap(int[] sortedArr, String type)
+    public MaxMinHeap(Point[] sortedArr, String type)
     {
         this.type = type;
         this.maxSize = sortedArr.length *2;

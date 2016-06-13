@@ -2,14 +2,21 @@ import java.lang.reflect.Array;
 
 public class PointDataStructure implements PDT {
 
-
 	//////////////// DON'T DELETE THIS CONSTRUCTOR ////////////////
 	public PointDataStructure(Point[] points, Point initialYMedianPoint)
 	{
-		//sortArray();
-		//CreateTree();
-		//CreateHeap();
-		//TODO
+		Point[] sortedPoints = sortArray(points);
+		BTree bTree = new BTree(sortedPoints);
+		if(points.length % 2 == 1){
+			Point[] arr1 = new Point[points.length/2];
+			Point[] arr2 = new Point[points.length/2+1];
+		}
+		else{
+			Point[] arr1 = new Point[points.length/2-1];
+			Point[] arr2 = new Point[points.length/2];
+		}
+		MaxMinHeap minHeap = new MaxMinHeap();
+		for()
 	}
 
 	@Override
@@ -64,6 +71,7 @@ public class PointDataStructure implements PDT {
 		}
 		return true;
 	}
+
 	private Point[] sortArray(Point arr[])
 	{
 		if(isArraysorted(arr))
