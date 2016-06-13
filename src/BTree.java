@@ -5,6 +5,7 @@ import java.awt.*;
  */
 public class BTree {
     private BNode root;
+    private static int counter = 0;
 
     /**
      * Constructor.
@@ -114,8 +115,9 @@ public class BTree {
         return getNode(root, val);
     }
 
-    private Point getClosestPointfromLeft(int xLeft)
-    {
+
+    //private Point getClosestPointfromLeft(int xLeft)
+    //{
      /*   int nodeVal = bNode.data.getX();
         if (val < nodeVal)
             return getNode(bNode.left, val);
@@ -123,7 +125,7 @@ public class BTree {
             return getNode(bNode.right, val);
         else
             return bNode;*/
-    }
+    //}
 
     private BNode getNode(BNode bNode, int val)
     {
@@ -218,21 +220,23 @@ public class BTree {
     /**
      * Print Inorder traversal
      */
-    public void inorder(int XLeft, int XRight)
+    public Point[] inorder(Point[] arr, int XLeft, int XRight)
     {
-        inorder(root,XLeft,XRight);
+        inorder(arr, root,XLeft,XRight);
+        counter = 0;
+        return arr;
     }
 
-    private void inorder(BNode bNode, int XLeft, int XRight)
+    private void inorder(Point[] arr, BNode bNode, int XLeft, int XRight)
     {
         if (bNode != null)
         {
             if(XLeft < bNode.data.getX())
-                inorder(bNode.left, XLeft, XRight);
+                inorder(arr, bNode.left, XLeft, XRight);
             if(bNode.data.getX() >= XLeft && bNode.data.getX() <= XRight)
-                System.out.println(bNode.data.getX() + " " + bNode.data.getY() + " " + bNode.size + " " + bNode.ySum);
+                arr[counter] = bNode.data;
             if(XRight > bNode.data.getX())
-                inorder(bNode.right, XLeft, XRight);
+                inorder(arr, bNode.right, XLeft, XRight);
         }
     }
 
@@ -253,7 +257,7 @@ public class BTree {
         node.ySum = sum + node.data.getY();
     }
 
-    private BNode getMax(BNode bNode){
+    public BNode getMax(BNode bNode){
         if(bNode.right == null){
             return bNode;
         }
@@ -262,7 +266,7 @@ public class BTree {
         }
     }
 
-    private BNode getMin(BNode bNode){
+    public BNode getMin(BNode bNode){
         if(bNode.left == null){
             return bNode;
         }

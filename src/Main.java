@@ -31,12 +31,14 @@ public class Main {
 				new Point(7, 7),
 		};
 
+		/*
 		Heap h = new Heap(points, true);
 		h.printArray();
 		System.out.println();
 		h.ExtractMax();
 		h.ExtractMax();
 		h.printArray();
+		*/
 /*
 		BTree t = new BTree(points);
 

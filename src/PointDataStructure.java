@@ -52,20 +52,40 @@ public class PointDataStructure implements PDT {
 
 	@Override
 	public Point[] getPointsInRange(int XLeft, int XRight) {
-		// TODO Auto-generated method stub
-		return null;
+		int numOfPoints = numOfPointsInRange(XLeft,XRight);
+		if(numOfPoints == 0) return null;
+		else{
+			Point[] points = new Point[numOfPoints];
+			return bTree.inorder(points,XLeft,XRight);
+		}
 	}
 
 	@Override
 	public int numOfPointsInRange(int XLeft, int XRight) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(bTree.getRoot() == null) return 0;
+		BNode leftNode = bTree.getClosestNodeFromRight(XLeft);
+		BNode rightNode = bTree.getClosestNodeFromLeft(XRight);
+		if(leftNode.data.getX()>rightNode.data.getX()) return 0;
+		int numOfPoints = bTree.getRoot().size;
+		if(leftNode.left != null)
+			numOfPoints = numOfPoints - leftNode.left.size;
+		if(rightNode.right != null)
+			numOfPoints = numOfPoints - rightNode.right.size;
+		return numOfPoints;
 	}
 
 	@Override
 	public double averageHeightInRange(int XLeft, int XRight) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(bTree.getRoot() == null) return 0;
+		BNode leftNode = bTree.getClosestNodeFromRight(XLeft);
+		BNode rightNode = bTree.getClosestNodeFromLeft(XRight);
+		if(leftNode.data.getX()>rightNode.data.getX()) return 0;
+		int ySumOfPoints = bTree.getRoot().ySum;
+		if(leftNode.left != null)
+			ySumOfPoints = ySumOfPoints - leftNode.left.ySum;
+		if(rightNode.right != null)
+			ySumOfPoints = ySumOfPoints - rightNode.right.ySum;
+		return (ySumOfPoints/numOfPointsInRange(XLeft,XRight));
 	}
 
 	@Override
@@ -89,10 +109,10 @@ public class PointDataStructure implements PDT {
 
 	@Override
 	public Point[] getAllPoints() {
-		// TODO Auto-generated method stub
 		Point [] points = new Point[maxHeap.heapSize + minHeap.heapSize +1];
-
-		return null;
+		Point root = bTree.getRoot();
+		points = bTree.inorder(points,bTree.getMin(root).data.getX(),bTree.getMax(root).data.getX());
+		return points;
 	}
 
 	//TODO: add members, methods, etc.
