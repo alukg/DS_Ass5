@@ -38,7 +38,7 @@ public class Main {
 		h.ExtractMax();
 		h.printArray();
 /*
-		AVLTree t = new AVLTree(points);
+		BTree t = new BTree(points);
 
 		t.insert(new Point(8,8));
 		t.insert(new Point(9,9));
