@@ -119,33 +119,43 @@ public class BTree {
         return getNode(root, val);
     }
 
-    public BNode getClosestNodefromLeft(BNode curr, BNode bNode, int val) {
+    public BNode getClosestNodeFromLeft (int val)
+    {
+        return getClosestNodeFromLeft(null,getRoot(),val);
+    }
+
+    private BNode getClosestNodeFromLeft(BNode curr, BNode bNode, int val) {
         if(bNode == null)
             return curr;
         if (bNode.data.getX() == val)
             return bNode;
         else
             if(val< bNode.data.getX())
-                return getClosestNodefromLeft(curr,bNode.left, val);
+                return getClosestNodeFromLeft(curr,bNode.left, val);
             else
             {
                 curr= bNode;
-                return getClosestNodefromLeft(curr,bNode.right,val);
+                return getClosestNodeFromLeft(curr,bNode.right,val);
             }
     }
 
-    public BNode getClosestNodefromRight(BNode curr, BNode bNode, int val) {
+
+    public BNode getClosestNodeFromRight (int val)
+    {
+        return getClosestNodeFromRight(null,getRoot(),val);
+    }
+    private BNode getClosestNodeFromRight(BNode curr, BNode bNode, int val) {
         if(bNode == null)
             return curr;
         if (bNode.data.getX() == val)
             return bNode;
         else
         if(val> bNode.data.getX())
-            return getClosestNodefromRight(curr,bNode.right, val);
+            return getClosestNodeFromRight(curr,bNode.right, val);
         else
         {
             curr= bNode;
-            return getClosestNodefromRight(curr,bNode.left,val);
+            return getClosestNodeFromRight(curr,bNode.left,val);
         }
     }
 
