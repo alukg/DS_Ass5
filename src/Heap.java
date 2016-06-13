@@ -2,14 +2,14 @@
  * Created by shahar on 11/06/2016.
  */
 public class Heap {
-    Point[] heapArr;
+    iPoint[] heapArr;
     int heapSize;
     boolean isMax;
 
 
     //Constructor
     public Heap(int arrLength, boolean isMax) {
-        heapArr = new Point[arrLength * 2];
+        heapArr = new iPoint[arrLength * 2];
         heapSize = 0;
         this.isMax = isMax;
     }
@@ -19,21 +19,22 @@ public class Heap {
             System.out.print(heapArr[i] + " ");
     }
 
-    public void Insert(Point data) {
+    public void Insert(iPoint data) {
+        data.index = heapSize;
         heapArr[heapSize] = data;
         UpHeapify(heapSize);
         heapSize++;
     }
 
-    public Point Max() {
+    public iPoint Max() {
         return heapArr[0];
     }
 
-    public Point ExtractMax() {
+    public iPoint ExtractMax() {
         if(heapSize==0)
             throw new RuntimeException("Heap is Empty");
         else {
-            Point p = heapArr[0];
+            iPoint p = heapArr[0];
             heapArr[0] = heapArr[heapSize - 1];
             heapSize--;
             DownHeapify(0);
@@ -46,12 +47,12 @@ public class Heap {
             if (2 * (index + 1) >= heapSize) {
                 if(2 * (index + 1) - 1 < heapSize)
                     if (getMax(index, 2 * (index + 1) - 1) == 2 * (index + 1) - 1) {
-                        swapPoints(index, 2 * (index + 1) - 1);
+                        swapiPoints(index, 2 * (index + 1) - 1);
                 }
             } else {
                 int maxChildIndex = getMax(2 * (index + 1) - 1, 2 * (index + 1));
                 if (getMax(index, maxChildIndex) == maxChildIndex) {
-                    swapPoints(index, maxChildIndex);
+                    swapiPoints(index, maxChildIndex);
                     if (2 * (index + 1) - 1 < heapSize)
                         DownHeapify(maxChildIndex);
                 }
@@ -60,12 +61,12 @@ public class Heap {
             if (2 * (index + 1) >= heapSize) {
                 if(2 * (index + 1) - 1 < heapSize)
                     if (getMin(index, 2 * (index + 1) - 1) == 2 * (index + 1) - 1) {
-                        swapPoints(index, 2 * (index + 1) - 1);
+                        swapiPoints(index, 2 * (index + 1) - 1);
                 }
             } else {
                 int minChildIndex = getMin(2 * (index + 1) - 1, 2 * (index + 1));
                 if (getMin(index, minChildIndex) == minChildIndex) {
-                    swapPoints(index, minChildIndex);
+                    swapiPoints(index, minChildIndex);
                     if (minChildIndex < heapSize)
                         DownHeapify(minChildIndex);
                 }
@@ -78,47 +79,49 @@ public class Heap {
         if (isMax) {
             if (parentIndex >= 0) {
                 if (getMin(index, parentIndex) == parentIndex) {
-                    swapPoints(index, parentIndex);
+                    swapiPoints(index, parentIndex);
                     UpHeapify(parentIndex);
                 }
             }
         } else {
             if (parentIndex >= 0) {
                 if (getMax(index, parentIndex) == parentIndex) {
-                    swapPoints(index, parentIndex);
+                    swapiPoints(index, parentIndex);
                     UpHeapify(parentIndex);
                 }
             }
         }
     }
 
-    private void swapPoints(int x, int y) {
-        Point temp = heapArr[x];
+    private void swapiPoints(int x, int y) {
+        iPoint temp = heapArr[x];
         heapArr[x] = heapArr[y];
         heapArr[y] = temp;
+        heapArr[y].index = heapArr[x].index;
+        heapArr[x].index = temp.index;
     }
 
     private int getMax(int p1Index, int p2Index) {
-        if (heapArr[p1Index].getY() != heapArr[p2Index].getY())
-            if (heapArr[p1Index].getY() == Math.max(heapArr[p1Index].getY(), heapArr[p2Index].getY()))
+        if (heapArr[p1Index].point.getY() != heapArr[p2Index].point.getY())
+            if (heapArr[p1Index].point.getY() == Math.max(heapArr[p1Index].point.getY(), heapArr[p2Index].point.getY()))
                 return p1Index;
             else
                 return p2Index;
-        else if (heapArr[p1Index].getX() != heapArr[p2Index].getX())
-            if (heapArr[p1Index].getX() == Math.max(heapArr[p1Index].getX(), heapArr[p2Index].getX()))
+        else if (heapArr[p1Index].point.getX() != heapArr[p2Index].point.getX())
+            if (heapArr[p1Index].point.getX() == Math.max(heapArr[p1Index].point.getX(), heapArr[p2Index].point.getX()))
                 return p1Index;
         return p2Index;
 
     }
 
     private int getMin(int p1Index, int p2Index) {
-        if (heapArr[p1Index].getY() != heapArr[p2Index].getY())
-            if (heapArr[p1Index].getY() == Math.min(heapArr[p1Index].getY(), heapArr[p2Index].getY()))
+        if (heapArr[p1Index].point.getY() != heapArr[p2Index].point.getY())
+            if (heapArr[p1Index].point.getY() == Math.min(heapArr[p1Index].point.getY(), heapArr[p2Index].point.getY()))
                 return p1Index;
             else
                 return p2Index;
-        else if (heapArr[p1Index].getX() != heapArr[p2Index].getX())
-            if (heapArr[p1Index].getX() == Math.min(heapArr[p1Index].getX(), heapArr[p2Index].getX()))
+        else if (heapArr[p1Index].point.getX() != heapArr[p2Index].point.getX())
+            if (heapArr[p1Index].point.getX() == Math.min(heapArr[p1Index].point.getX(), heapArr[p2Index].point.getX()))
                 return p1Index;
         return p2Index;
     }
