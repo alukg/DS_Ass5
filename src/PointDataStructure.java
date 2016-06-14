@@ -36,7 +36,7 @@ public class PointDataStructure implements PDT {
 	public void addPoint(Point point) {
 		// TODO Auto-generated method stub
 		//insert to tree
-
+		this.bTree.insert(point);
 		//insert to heap
 		iPoint ipoint;
 		if(point.getY() == medianPoint.point.getY()) {

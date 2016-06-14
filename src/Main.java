@@ -185,6 +185,7 @@ public class Main {
 		double expectedD = 97.0;
 		double resultD = pdt.averageHeightInRange(XLeft, XRight);
 		testExpected(testName, expectedD, resultD);
+		testExpected(testName, expectedD, resultD);
 		testName = "B2.2";
 		XLeft=0;
 		XRight=NUM;
