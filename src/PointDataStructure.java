@@ -1,7 +1,7 @@
 
 public class PointDataStructure implements PDT {
 
-	private Point medianPoint;
+	private iPoint medianPoint;
 	private BTree bTree;
 	private Heap minHeap;
 	private Heap maxHeap;
@@ -11,11 +11,11 @@ public class PointDataStructure implements PDT {
 	{
 		Point[] sortedPoints = sortArray(points);
 		bTree = new BTree(sortedPoints);
-		maxHeap = new Heap(sortedPoints.length/2+1,false);
-		minHeap = new Heap(sortedPoints.length/2+1,true);
-		medianPoint = initialYMedianPoint;
-		for(int i=1;i<points.length/2+1;i++){
-			iPoint ipoint = new iPoint(points[i-1],maxHeap.heapSize);
+		maxHeap = new Heap(sortedPoints.length/2+1,true);
+		minHeap = new Heap(sortedPoints.length/2+1,false);
+		medianPoint = new iPoint (initialYMedianPoint,-1);
+		for(int i=0;i<points.length/2;i++){
+			iPoint ipoint = new iPoint(points[i],maxHeap.heapSize);
 			maxHeap.Insert(ipoint);
 		}
 		for(int i=(points.length/2+2);i<=points.length;i++){
@@ -31,8 +31,8 @@ public class PointDataStructure implements PDT {
 
 		//insert to heap
 		iPoint ipoint;
-		if(point.getY() == medianPoint.getY()) {
-			if (point.getX() < medianPoint.getX()) {
+		if(point.getY() == medianPoint.point.getY()) {
+			if (point.getX() < medianPoint.point.getX()) {
 				ipoint = new iPoint(point,maxHeap.heapSize);
 				maxHeap.Insert(ipoint);
 			}
@@ -42,7 +42,7 @@ public class PointDataStructure implements PDT {
 		}
 		else
 		{
-			if(point.getY() < medianPoint.getY()) {
+			if(point.getY() < medianPoint.point.getY()) {
 				ipoint = new iPoint(point, maxHeap.heapSize);
 				maxHeap.Insert(ipoint);
 			}
@@ -54,9 +54,8 @@ public class PointDataStructure implements PDT {
 		}
 		if (maxHeap.heapSize - minHeap.heapSize >1)
 		{
-			iPoint midPoint = new iPoint(medianPoint ,minHeap.heapSize);
-			minHeap.Insert(midPoint);
-			medianPoint = maxHeap.ExtractMax().point;
+			minHeap.Insert(medianPoint);
+			medianPoint = maxHeap.ExtractMax();
 		}
 	}
 
@@ -87,32 +86,51 @@ public class PointDataStructure implements PDT {
 		BNode rightNode = bTree.getClosestNodeFromLeft(XRight);
 		if(leftNode == null || rightNode == null) return 0;
 		if(leftNode.data.getX()>rightNode.data.getX()) return 0;
-		int ySumOfPoints = bTree.getSumbyNode(rightNode.data.getX())-bTree.getSumbyNode(leftNode.data.getX())+ bTree.getNode(leftNode.data.getX()).data.getY();
+		double ySumOfPoints = bTree.getSumbyNode(rightNode.data.getX())-bTree.getSumbyNode(leftNode.data.getX())+ bTree.getNode(leftNode.data.getX()).data.getY();
 		return (ySumOfPoints/numOfPointsInRange(XLeft,XRight));
 	}
 
 	@Override
 	public void removeMedianPoint() {
 		if(maxHeap.heapSize > minHeap.heapSize){
-			medianPoint = maxHeap.ExtractMax().point;
+			medianPoint = maxHeap.ExtractMax();
 		}
 		else if(maxHeap.heapSize == 0){
 			medianPoint = null;
 		}
 		else{
-			medianPoint = minHeap.ExtractMax().point;
+			medianPoint = minHeap.ExtractMax();
 		}
 	}
 
 	@Override
 	public Point[] getMedianPoints(int k) {
-		Point[] medianPoints = new Point[k];
-		medianPoints[0] = medianPoint;
-		Heap maxHeap = new Heap(k, true);
-		for (int i = 0; i < k / 2; i++) {
 
+		int i=0;
+		Point[] medianPoints = new Point[k];
+		Heap kMaxHeap = new Heap(k/2, true);
+		medianPoints[0] = medianPoint.point;
+		kMaxHeap.Insert(maxHeap.heapArr[i]);
+		for(int j=1;j<k/2+1; j++)
+		{
+			iPoint p = kMaxHeap.ExtractMax();
+			i=p.index;
+			medianPoints[j] = p.point;
+			kMaxHeap.Insert(maxHeap.heapArr[2 * (i + 1) - 1]);
+			kMaxHeap.Insert(maxHeap.heapArr[2 * (i + 1)]);
 		}
-		return null;
+		i=0;
+		Heap kMinHeap = new Heap(k/2, false);
+		kMinHeap.Insert(minHeap.heapArr[i]);
+		for(int j=k/2+1; j<k;j++)
+		{
+			iPoint p = kMinHeap.ExtractMax();
+			i=p.index;
+			medianPoints[j] = p.point;
+			kMinHeap.Insert(minHeap.heapArr[2 * (i + 1) - 1]);
+			kMinHeap.Insert(minHeap.heapArr[2 * (i + 1)]);
+		}
+		return medianPoints;
 	}
 
 	@Override
