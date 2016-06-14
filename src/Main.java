@@ -11,37 +11,12 @@ public class Main {
 
 	public static void main(String[] args) 
 	{
-		//testA();
-		//testB();
-		//testC();
-		testD();
+		testA();
+		testB();
+		testC();
 	}
 
-	private static void testD()
-	{
-
-		Point[] points = {
-				new Point(0, 0),
-				new Point(1, 1),
-				new Point(4, 4),
-				new Point(5, 5),
-				new Point(6, 6),
-				new Point(7, 7),
-				new Point(8,8)
-		};
-
-		BTree t = new BTree(points);
-
-		t.insert(new Point(8,8));
-		t.insert(new Point(11,11));
-		//t.inorder();
-		//System.out.println(t.getClosestNodeFromRight(10).data.getX());
-		System.out.println(t.getLocationByNode(7));
-		System.out.println(t.getSumbyNode(7));
-
-		PointDataStructure pdt =new PointDataStructure(points,points[4]);
-		System.out.println(pdt.averageHeightInRange(1,4));
-	}
+	
 	private static void testA()
 	{
 		Point[] points = {

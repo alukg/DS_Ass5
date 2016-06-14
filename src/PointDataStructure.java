@@ -1,7 +1,7 @@
 
 public class PointDataStructure implements PDT {
 
-	private Point medianPoint;
+	private iPoint medianPoint;
 	private BTree bTree;
 	private Heap minHeap;
 	private Heap maxHeap;
@@ -13,7 +13,7 @@ public class PointDataStructure implements PDT {
 		bTree = new BTree(sortedPoints);
 		maxHeap = new Heap(sortedPoints.length/2+1,false);
 		minHeap = new Heap(sortedPoints.length/2+1,true);
-		medianPoint = initialYMedianPoint;
+		medianPoint = new iPoint(initialYMedianPoint,0);
 		for(int i=1;i<points.length/2+1;i++){
 			iPoint ipoint = new iPoint(points[i-1],maxHeap.heapSize);
 			maxHeap.Insert(ipoint);
@@ -94,13 +94,13 @@ public class PointDataStructure implements PDT {
 	@Override
 	public void removeMedianPoint() {
 		if(maxHeap.heapSize > minHeap.heapSize){
-			medianPoint = maxHeap.ExtractMax().point;
+			medianPoint = maxHeap.ExtractMax();
 		}
 		else if(maxHeap.heapSize == 0){
 			medianPoint = null;
 		}
 		else{
-			medianPoint = minHeap.ExtractMax().point;
+			medianPoint = minHeap.ExtractMax();
 		}
 	}
 
@@ -149,4 +149,3 @@ public class PointDataStructure implements PDT {
 		}
 	}
 }
-
