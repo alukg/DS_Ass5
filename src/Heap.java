@@ -1,13 +1,24 @@
 /**
  * Created by shahar on 11/06/2016.
+ * heap data structure that contains iPoints elements.
+ *
  */
+
 public class Heap {
+
     iPoint[] heapArr;
     int heapSize;
     boolean isMax;
     boolean changeIndex;
 
-    //Constructor
+
+
+    /**
+     * constructor
+     * @param arrLength - describe the length of the heap array
+     * @param isMax - boolean value to determine if maximum heap or minimum heap
+     * @param changeIndex - boolean value to determine if the heap change the iPoint indexes.
+     */
     public Heap(int arrLength, boolean isMax, boolean changeIndex) {
         heapArr = new iPoint[arrLength * 2];
         heapSize = 0;
@@ -15,11 +26,18 @@ public class Heap {
         this.changeIndex = changeIndex;
     }
 
+    /**
+     * function to print the heap array
+     */
     public void printArray() {
         for (int i = 0; i < heapSize; i++)
             System.out.print(heapArr[i] + " ");
     }
 
+    /**
+     * insert function - to insert an iPoint into the heap
+     * @param data - iPoint parameter to insert
+     */
     public void Insert(iPoint data) {
         if(changeIndex)
             data.index = heapSize;
@@ -28,10 +46,18 @@ public class Heap {
         heapSize++;
     }
 
+    /**
+     * the function doesn't change the heap
+     * @return the maximum value for maximum heap and minimum value for minimum heap
+     */
     public iPoint Max() {
         return heapArr[0];
     }
 
+    /**
+     * the function extract the value from the heap and heapify it.
+     * @return the maximum value for maximum heap and minimum value for minimum heap
+     */
     public iPoint ExtractMax() {
         if(heapSize==0)
             throw new RuntimeException("Heap is Empty");
@@ -46,6 +72,10 @@ public class Heap {
         }
     }
 
+    /**
+     * fix the heap down side
+     * @param index - describe which index in the heap may not be ok
+     */
     public void DownHeapify(int index) {
         if (isMax) {
             if (2 * (index + 1) >= heapSize) {
@@ -78,6 +108,10 @@ public class Heap {
         }
     }
 
+    /**
+     * fix the heap upside
+     * @param index - describe which index in the heap may not be ok
+     */
     public void UpHeapify(int index) {
         int parentIndex = (int) (Math.ceil((double) index / 2)) - 1;
         if (isMax) {
@@ -97,6 +131,11 @@ public class Heap {
         }
     }
 
+    /**
+     * switch between two points in the heap
+     * @param x index for point X in the heap
+     * @param y index for point Y in the heap
+     */
     private void swapiPoints(int x, int y) {
         if(changeIndex){
             int tempIndex = heapArr[x].index;
@@ -108,6 +147,12 @@ public class Heap {
         heapArr[y] = temp;
     }
 
+    /**
+     * determine which point is higher - first by y values then by x values.
+     * @param p1Index index for point p1 in the heap
+     * @param p2Index index for point p2 in the heap
+     * @return the higher point index
+     */
     private int getMax(int p1Index, int p2Index) {
         if (heapArr[p1Index].point.getY() != heapArr[p2Index].point.getY())
             if (heapArr[p1Index].point.getY() == Math.max(heapArr[p1Index].point.getY(), heapArr[p2Index].point.getY()))
@@ -121,6 +166,12 @@ public class Heap {
 
     }
 
+    /**
+     * determine which point is lower - first by y values then by x values.
+     * @param p1Index index for point p1 in the heap
+     * @param p2Index index for point p2 in the heap
+     * @return the lower point index
+     */
     private int getMin(int p1Index, int p2Index) {
         if (heapArr[p1Index].point.getY() != heapArr[p2Index].point.getY())
             if (heapArr[p1Index].point.getY() == Math.min(heapArr[p1Index].point.getY(), heapArr[p2Index].point.getY()))
