@@ -5,12 +5,14 @@ public class Heap {
     iPoint[] heapArr;
     int heapSize;
     boolean isMax;
+    boolean changeIndex;
 
     //Constructor
-    public Heap(int arrLength, boolean isMax) {
+    public Heap(int arrLength, boolean isMax, boolean changeIndex) {
         heapArr = new iPoint[arrLength * 2];
         heapSize = 0;
         this.isMax = isMax;
+        this.changeIndex = changeIndex;
     }
 
     public void printArray() {
@@ -19,7 +21,8 @@ public class Heap {
     }
 
     public void Insert(iPoint data) {
-        data.index = heapSize;
+        if(changeIndex)
+            data.index = heapSize;
         heapArr[heapSize] = data;
         UpHeapify(heapSize);
         heapSize++;
@@ -96,8 +99,10 @@ public class Heap {
         iPoint temp = heapArr[x];
         heapArr[x] = heapArr[y];
         heapArr[y] = temp;
-        heapArr[y].index = heapArr[x].index;
-        heapArr[x].index = temp.index;
+        if(changeIndex){
+            heapArr[y].index = heapArr[x].index;
+            heapArr[x].index = temp.index;
+        }
     }
 
     private int getMax(int p1Index, int p2Index) {
