@@ -108,7 +108,7 @@ public class PointDataStructure implements PDT {
 
 		int i=0;
 		Point[] medianPoints = new Point[k];
-		Heap kMaxHeap = new Heap(k/2, true);
+		Heap kMaxHeap = new Heap(k, true);
 		medianPoints[0] = medianPoint.point;
 		kMaxHeap.Insert(maxHeap.heapArr[i]);
 		for(int j=1;j<k/2+1; j++)
@@ -116,19 +116,23 @@ public class PointDataStructure implements PDT {
 			iPoint p = kMaxHeap.ExtractMax();
 			i=p.index;
 			medianPoints[j] = p.point;
-			kMaxHeap.Insert(maxHeap.heapArr[2 * (i + 1) - 1]);
-			kMaxHeap.Insert(maxHeap.heapArr[2 * (i + 1)]);
+			if ((2 * (i + 1)-1) < maxHeap.heapSize)
+				kMaxHeap.Insert(maxHeap.heapArr[2 * (i + 1) - 1]);
+			if ((2 * (i + 1)) < maxHeap.heapSize)
+				kMaxHeap.Insert(maxHeap.heapArr[2 * (i + 1)]);
 		}
 		i=0;
-		Heap kMinHeap = new Heap(k/2, false);
+		Heap kMinHeap = new Heap(k, false);
 		kMinHeap.Insert(minHeap.heapArr[i]);
 		for(int j=k/2+1; j<k;j++)
 		{
 			iPoint p = kMinHeap.ExtractMax();
 			i=p.index;
 			medianPoints[j] = p.point;
-			kMinHeap.Insert(minHeap.heapArr[2 * (i + 1) - 1]);
-			kMinHeap.Insert(minHeap.heapArr[2 * (i + 1)]);
+			if ((2 * (i + 1)-1) < minHeap.heapSize)
+				kMinHeap.Insert(minHeap.heapArr[2 * (i + 1) - 1]);
+			if ((2 * (i + 1)) < minHeap.heapSize)
+				kMinHeap.Insert(minHeap.heapArr[2 * (i + 1)]);
 		}
 		return medianPoints;
 	}

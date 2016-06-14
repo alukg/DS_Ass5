@@ -314,8 +314,10 @@ public class BTree {
         {
             if(XLeft < bNode.data.getX())
                 inorder(arr, bNode.left, XLeft, XRight);
-            if(bNode.data.getX() >= XLeft && bNode.data.getX() <= XRight)
+            if(bNode.data.getX() >= XLeft && bNode.data.getX() <= XRight) {
                 arr[counter] = bNode.data;
+                counter++;
+            }
             if(XRight > bNode.data.getX())
                 inorder(arr, bNode.right, XLeft, XRight);
         }
