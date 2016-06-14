@@ -96,13 +96,14 @@ public class Heap {
     }
 
     private void swapiPoints(int x, int y) {
+        if(changeIndex){
+            int tempIndex = heapArr[x].index;
+            heapArr[x].index = heapArr[y].index;
+            heapArr[y].index = tempIndex;
+        }
         iPoint temp = heapArr[x];
         heapArr[x] = heapArr[y];
         heapArr[y] = temp;
-        if(changeIndex){
-            heapArr[y].index = heapArr[x].index;
-            heapArr[x].index = temp.index;
-        }
     }
 
     private int getMax(int p1Index, int p2Index) {
