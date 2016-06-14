@@ -37,7 +37,9 @@ public class Heap {
             throw new RuntimeException("Heap is Empty");
         else {
             iPoint p = heapArr[0];
-            heapArr[0] = heapArr[heapSize - 1];
+            heapArr[0] = heapArr[heapSize -1];
+            if(changeIndex)
+                heapArr[0].index=0;
             heapSize--;
             DownHeapify(0);
             return p;
