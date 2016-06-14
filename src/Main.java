@@ -11,8 +11,8 @@ public class Main {
 
 	public static void main(String[] args) 
 	{
-		testA();
-		testB();
+		//testA();
+		//testB();
 		testC();
 	}
 
@@ -309,10 +309,110 @@ public class Main {
 
 	
 
-	private static void testC() 
-	{
-		
+	private static void testC() {
 		//add more tests
+		Point[] points2 = {
+				new Point(1, 4),
+				new Point(2, 7),
+				new Point(3, 15),
+				new Point(7, 7),
+				new Point(8, 2),
+				new Point(9, 9),
+				new Point(12, 5),
+				new Point(13, 7),
+				new Point(15, 15),
+				new Point(35, 12)
+		};
+
+		PDT pdt = new PointDataStructure(points2, points2[3]);
+		String testName;
+		int expected;
+		int result;
+
+		pdt.addPoint(new Point (47,12));
+		pdt.removeMedianPoint();
+		pdt.removeMedianPoint();
+
+		testName="C1.1";
+		int XLeft =15;
+		int XRight=35;
+		expected = 2;
+		result = pdt.numOfPointsInRange(XLeft, XRight);
+		testExpected(testName, expected, result);
+
+		testName="C1.2";
+		XLeft =1;
+		XRight=1;
+		expected = 1;
+		result = pdt.numOfPointsInRange(XLeft, XRight);
+		testExpected(testName, expected, result);
+
+		testName = "C1.3";
+		XLeft = 35;
+		XRight = 15;
+		expected = 0;
+		result = pdt.numOfPointsInRange(XLeft, XRight);
+		testExpected(testName, expected, result);
+
+
+		testName="C2.1";
+		XLeft =15;
+		XRight=47;
+		expected = 13;
+		double result2 = pdt.averageHeightInRange(XLeft, XRight);
+		testExpected(testName, expected, (int)result2);
+
+		testName="C2.2";
+		XLeft =1;
+		XRight=1;
+		expected = 4;
+		result2 = pdt.averageHeightInRange(XLeft, XRight);
+		testExpected(testName, expected, (int)result2);
+
+
+		testName="C2.3";
+		XLeft =35;
+		XRight=15;
+		expected = 0;
+		result2 = pdt.averageHeightInRange(XLeft, XRight);
+		testExpected(testName, expected, (int)result2);
+
+
+		testName="C3.1";
+		XLeft =35;
+		XRight=15;
+		Point [] expectedPoints = {
+				new Point(9, 9),
+				new Point(2, 7),
+				new Point(35, 12)};
+		Point [] tempPoints = pdt.getMedianPoints(3);
+		testExpectedPoints(testName, expectedPoints, tempPoints);
+
+		testName="C3.2";
+		XLeft =35;
+		XRight=15;
+		Point [] expectedPoints2 = {
+				new Point(9, 9),
+				new Point(2, 7),
+				new Point(12, 5),
+				new Point(35, 12)};
+
+		tempPoints = pdt.getMedianPoints(4);
+		testExpectedPoints(testName, expectedPoints2, tempPoints);
+
+		testName="C3.3";
+		XLeft =35;
+		XRight=15;
+		Point [] expectedPoints3 = {
+				new Point(9, 9),
+				new Point(2, 7),
+				new Point(12, 5),
+				new Point(47, 12),
+				new Point(35, 12)};
+
+		tempPoints = pdt.getMedianPoints(5);
+		testExpectedPoints(testName, expectedPoints3, tempPoints);
+
 	}
 	
 	private static class PointCompare implements Comparator<Point>
