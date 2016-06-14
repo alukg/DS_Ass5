@@ -70,7 +70,7 @@ public class PointDataStructure implements PDT {
 	@Override
 	public Point[] getPointsInRange(int XLeft, int XRight) {
 		int numOfPoints = numOfPointsInRange(XLeft,XRight);
-		if(numOfPoints == 0) return null;
+		if(numOfPoints == 0) return (new Point[0]);
 		else{
 			Point[] points = new Point[numOfPoints];
 			return bTree.inorder(points,XLeft,XRight);
@@ -90,6 +90,8 @@ public class PointDataStructure implements PDT {
 	@Override
 	public double averageHeightInRange(int XLeft, int XRight) {
 		if(bTree.getRoot() == null) return 0;
+		int numOfPoints = numOfPointsInRange(XLeft,XRight);
+		if(numOfPoints == 0) return 0;
 		BNode leftNode = bTree.getClosestNodeFromRight(XLeft);
 		BNode rightNode = bTree.getClosestNodeFromLeft(XRight);
 		if(leftNode == null || rightNode == null) return 0;
@@ -100,6 +102,7 @@ public class PointDataStructure implements PDT {
 
 	@Override
 	public void removeMedianPoint() {
+		bTree.remove(medianPoint.point.getX());
 		if(maxHeap.heapSize > minHeap.heapSize){
 			medianPoint = maxHeap.ExtractMax();
 		}
