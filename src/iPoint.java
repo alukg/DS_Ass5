@@ -3,26 +3,26 @@
  * Object class that contains a point and index.
  */
 
-public class iPoint {
+public class IPoint {
     Point point;
     int index;
 
     /**
      * Constructor
-     * @param point
+     * @param point data to insert.
      * get point and put -1 in the index
      */
-    public iPoint(Point point)
+    public IPoint(Point point)
     {
         this(point,-1);
     }
 
     /**
-     * constructor
-     * @param point
-     * @param index
+     * constructor with index
+     * @param point data to insert.
+     * @param index index of the point.
      */
-    public iPoint(Point point, int index)
+    public IPoint(Point point, int index)
     {
         this.point = point;
         this.index = index;

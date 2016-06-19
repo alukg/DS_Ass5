@@ -6,39 +6,39 @@
 
 public class Heap {
 
-    iPoint[] heapArr;
+    IPoint[] heapArr;
     int heapSize;
     boolean isMax;
-    boolean changeIndex;
-
-
+    boolean changeIndex; //decide if to change the index of the points when changing place.
 
     /**
      * constructor
      * @param arrLength - describe the length of the heap array
      * @param isMax - boolean value to determine if maximum heap or minimum heap
-     * @param changeIndex - boolean value to determine if the heap change the iPoint indexes.
+     * @param changeIndex - boolean value to determine if the heap change the IPoint indexes.
      */
     public Heap(int arrLength, boolean isMax, boolean changeIndex) {
-        heapArr = new iPoint[arrLength * 2];
+        heapArr = new IPoint[arrLength * 2]; //set max size of the heap.
         heapSize = 0;
-        this.isMax = isMax;
+        this.isMax = isMax; //decide which heap - max or min.
         this.changeIndex = changeIndex;
     }
 
-    /**
-     * function to print the heap array
-     */
-    public void printArray() {
-        for (int i = 0; i < heapSize; i++)
-            System.out.print(heapArr[i] + " ");
+    public Heap(IPoint[] arr, int size, boolean isMax, boolean changeIndex) {
+        heapArr = arr;
+        heapSize = size;
+        this.isMax = isMax; //decide which heap - max or min.
+        this.changeIndex = changeIndex;
+        for(int i=size/2+1;i>=0;i--){
+            DownHeapify(i);
+        }
     }
 
     /**
-     * insert function - to insert an iPoint into the heap
-     * @param data - iPoint parameter to insert
+     * insert function - to insert an IPoint into the heap
+     * @param data - IPoint parameter to insert
      */
-    public void Insert(iPoint data) {
+    public void Insert(IPoint data) {
         if(changeIndex)
             data.index = heapSize;
         heapArr[heapSize] = data;
@@ -47,27 +47,19 @@ public class Heap {
     }
 
     /**
-     * the function doesn't change the heap
-     * @return the maximum value for maximum heap and minimum value for minimum heap
-     */
-    public iPoint Max() {
-        return heapArr[0];
-    }
-
-    /**
      * the function extract the value from the heap and heapify it.
      * @return the maximum value for maximum heap and minimum value for minimum heap
      */
-    public iPoint ExtractMax() {
+    public IPoint ExtractMax() {
         if(heapSize==0)
-            throw new RuntimeException("Heap is Empty");
+            return null;
         else {
-            iPoint p = heapArr[0];
-            heapArr[0] = heapArr[heapSize -1];
+            IPoint p = heapArr[0];
+            heapArr[0] = heapArr[heapSize -1]; //set the last node to be the first.
             if(changeIndex)
                 heapArr[0].index=0;
             heapSize--;
-            DownHeapify(0);
+            DownHeapify(0); //fix the heap from the root down.
             return p;
         }
     }
@@ -137,12 +129,12 @@ public class Heap {
      * @param y index for point Y in the heap
      */
     private void swapiPoints(int x, int y) {
-        if(changeIndex){
+        if(changeIndex){ //swap the index of the points
             int tempIndex = heapArr[x].index;
             heapArr[x].index = heapArr[y].index;
             heapArr[y].index = tempIndex;
-        }
-        iPoint temp = heapArr[x];
+        } //swap the place of the points.
+        IPoint temp = heapArr[x];
         heapArr[x] = heapArr[y];
         heapArr[y] = temp;
     }
